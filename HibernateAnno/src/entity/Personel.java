@@ -23,6 +23,6 @@ public class Personel {
 	private String adi;
 	@Column(name = "soyadi", length = 30)
 	private String soyadi;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Bolum bolum;
 }
