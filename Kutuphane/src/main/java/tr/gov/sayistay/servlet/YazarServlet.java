@@ -32,6 +32,7 @@ public class YazarServlet extends HttpServlet {
 		YazarBusiness yazarBusiness = new YazarBusiness();
 		yazarBusiness.yazarKaydet(yazar);
 
+		req.setAttribute("mesaj", "Yazar oluşturulmuştur");
 		req.setAttribute("yazarListesi", yazarBusiness.getYazarlar());
 		req.getRequestDispatcher("/yazarlar.jsp").forward(req, resp);
 

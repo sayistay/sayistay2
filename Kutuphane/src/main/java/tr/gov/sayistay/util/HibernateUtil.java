@@ -14,6 +14,7 @@ import tr.gov.sayistay.entity.Yazar;
 
 public class HibernateUtil {
 	private static SessionFactory factory;
+	private static ThreadLocal<Session> session = new ThreadLocal<Session>();
 
 	private static SessionFactory getSessionFactory() {
 		if (factory == null) {
@@ -62,7 +63,20 @@ public class HibernateUtil {
 	}
 
 	public static Session getSession() {
-		return getSessionFactory().openSession();
+		Session session = HibernateUtil.session.get();
+		if (session == null) {
+			session = getSessionFactory().openSession();
+			HibernateUtil.session.set(session);
+		}
+		return session;
+	}
+
+	public static void closeSession() {
+		Session session = HibernateUtil.session.get();
+		if (session != null && session.isOpen()) {
+			session.close();
+			HibernateUtil.session.remove();
+		}
 	}
 
 	public static void main(String[] args) {

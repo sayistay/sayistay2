@@ -57,4 +57,24 @@ public class YazarDAO {
 		}
 		return kaydedilenYazar;
 	}
+
+	public Yazar getYazar(long id) {
+		return HibernateUtil.getSession().createNamedQuery("getYazarById", Yazar.class)
+				.setParameter(1, id).getSingleResultOrNull();
+	}
+
+	public void sil(Yazar yazar) {
+		Transaction tx = null;
+		try {
+			Session session = HibernateUtil.getSession();
+			tx = session.beginTransaction();
+			session.remove(yazar);
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		}
+	}
 }

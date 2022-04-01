@@ -1,5 +1,7 @@
 package tr.gov.sayistay.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -27,6 +29,11 @@ public class KitapDAO {
 			e.printStackTrace();
 		}
 		return kaydedilenKitap;
+	}
+
+	public List<Kitap> getKitaplar(int yazarId) {
+		return HibernateUtil.getSession().createNamedQuery("getKitaplarByYazarId", Kitap.class)
+				.setParameter(1, yazarId).list();
 	}
 
 }

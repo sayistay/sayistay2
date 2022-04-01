@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @NamedQuery(name = "kitapSayisi", query = "select count(k) from Kitap k")
+@NamedQuery(name = "getKitaplarByYazarId", query = "from Kitap k where k.yazar.id = ?1")
 
 @Entity
 @Data

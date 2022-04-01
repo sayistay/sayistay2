@@ -12,27 +12,42 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </head>
 <body class="m-4">
+<c:if test="${not empty mesaj}">
+<div class="alert alert-primary">
+  ${mesaj}
+</div>
+</c:if>
 
 <form action="<c:url value="/yazarYarat.jsp" />" method="post">
-	<button type="submit" class="btn btn-primary">Yazar Yarat</button>
+	<button type="submit" class="btn btn-outline-success">Yazar Yarat</button>
 </form>
-<table class="table table-striped mt-4">
-	<tr>
-	   <th>Sicil</th>
-	   <th>Adı</th>
-	   <th>Soyadı</th> 
-	   <th>Doğum Tarihi</th>
-	   <th>Kitap Sayısı</th>
-	</tr>
-	<c:forEach items="${yazarListesi}" var="yazar">
+<form action="<c:url value="/yazarGuncelle" />" method="get">
+	<table class="table table-striped mt-4">
 		<tr>
-		  <td>${yazar.id}</td>
-		  <td>${yazar.adi}</td>
-		  <td>${yazar.soyadi}</td>
-		  <td>${yazar.dogumTarihi}</td>
-		  <td>${fn:length(yazar.kitaplar)}</td>
-		</tr> 
-	</c:forEach>
-</table>
+		   <th></th>
+		   <th><div class="text-center">Sicil</div></th>
+		   <th><div class="">Adı</div></th>
+		   <th><div class="">Soyadı</div></th> 
+		   <th><div class="text-center">Doğum Tarihi</div></th>
+		   <th><div class="text-center">Kitap Sayısı</div></th>
+		</tr>
+		<c:forEach items="${yazarListesi}" var="yazar">
+			<tr>
+			  <td>
+			    <div class="form-check">
+				  <input class="form-check-input" type="radio" name="seciliYazar" value="${yazar.id}">
+				</div>
+			  </td>
+			  <td><div class="text-center">${yazar.id}</div></td>
+			  <td>${yazar.adi}</td>
+			  <td>${yazar.soyadi}</td>
+			  <td><div class="text-center">${yazar.dogumTarihi}</div></td>
+			  <td><div class="text-center"><a href="<c:url value="/kitaplar" />?id=${yazar.id}">${fn:length(yazar.kitaplar)}</a></div></td>
+			</tr> 
+		</c:forEach>
+	</table>
+	<button type="submit" class="btn btn-outline-danger" name="islem" value="sil">Sil</button>
+	<button type="submit" class="btn btn-outline-primary" name="islem" value="guncelle">Güncelle</button>
+</form>
 </body>
 </html>
