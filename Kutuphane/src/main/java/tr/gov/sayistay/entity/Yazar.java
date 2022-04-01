@@ -19,6 +19,7 @@ import lombok.ToString;
 
 @NamedQuery(name = "yazarSayisi", query = "select count(y) from Yazar y")
 @NamedQuery(name = "getYazarByAdiSoyadi", query = "from Yazar y where y.adi = ?1 and y.soyadi = ?2")
+@NamedQuery(name = "getTumYazarlar", query = "from Yazar")
 
 @Entity
 @Data
